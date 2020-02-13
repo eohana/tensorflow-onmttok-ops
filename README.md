@@ -18,14 +18,17 @@ It's primarily intended to be used as an addition to the
 in order to remove the need of applying tokenization and/or 
 detokenization outside of a serving environment (e.g. TensorFlow Serving).
 
+## Compatibility
+
+* TensorFlow >= `2.0`
+* OpenNMT-tf >= `2.6.0` *for usage in conjunction with OpenNMT-tf*
+
 ## Installation
 
 Prerequisites :
 
 * Linux environment
 * Python >= `3.5`
-* TensorFlow >= `2.0`
-* OpenNMT-tf >= `2.0.0` *for usage in conjunction with OpenNMT-tf*
 
 Install the package with pip :
 
@@ -76,8 +79,8 @@ text = tf_onmttok.detokenize(["How", "are", "you", "?"], mode='space')
 ### With OpenNMT-tf
 
 Usage with OpenNMT-tf is pretty straightforward.  
-This package comes with a built-in tokenizer that extends
-the `OpenNMTTokenizer` class, in order to make usage of the ops.
+This package comes with a built-in tokenizer 
+in order to make usage of the ops.
 
 1. Before training your model, register the tokenizer as follows :
 
@@ -104,7 +107,7 @@ tokenization configuration files, e.g. :
 Your `ExportedModel` will now expect a `text` 
 input instead of `tokens` and `length`.
 
-    > **Note**: Tokenization resources will be still exported
+    > **Note**: Tokenization resources will not be exported
       to the `assets.extra` directory.
 
 ## Build TF Serving with this Ops
