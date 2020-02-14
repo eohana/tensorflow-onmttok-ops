@@ -1,14 +1,12 @@
+[![Build Status](https://travis-ci.org/eohana/tensorflow-onmttok-ops.svg?branch=master)](https://travis-ci.org/eohana/tensorflow-onmttok-ops)
+[![PyPI version](https://badge.fury.io/py/tensorflow-onmttok-ops.svg)](https://badge.fury.io/py/tensorflow-onmttok-ops)
+
 # OpenNMT Tokenizer TensorFlow Ops
 
-**DISCLAIMER 1**: This package is not published by the OpenNMT authors.  
+**DISCLAIMER**: This package is not published by the OpenNMT authors.  
 Full credits for [OpenNMT Tokenizer](https://github.com/OpenNMT/Tokenizer)
 and [OpenNMT-tf](https://github.com/OpenNMT/OpenNMT-tf) goes to their respectively
 authors.
-
-**DISCLAIMER 2**: This project is still in an early phase and should not be
-used in production environments for now.
-
----
 
 This project aims to wrap [OpenNMT Tokenizer](https://github.com/OpenNMT/Tokenizer)
 into TensorFlow Ops.
@@ -20,14 +18,14 @@ detokenization outside of a serving environment (e.g. TensorFlow Serving).
 
 ## Compatibility
 
-* TensorFlow >= `2.0`
+* TensorFlow == `2.1.0`
 * OpenNMT-tf >= `2.6.0` *for usage in conjunction with OpenNMT-tf*
 
 ## Installation
 
 Prerequisites :
 
-* Linux environment
+* A Linux environment (`manylinux2014` eligible)
 * Python >= `3.5`
 
 Install the package with pip :
@@ -118,7 +116,7 @@ with this ops.
 ### Prerequisites
 
 * You have already cloned the
-TF Serving `>= 2.0.0` [repository](https://github.com/tensorflow/serving),
+TF Serving `>= 2.1.0` [repository](https://github.com/tensorflow/serving),
 and have all tools installed for building it
 * You have installed CMake `3.1.0` or newer
 
