@@ -25,13 +25,13 @@ class BinaryDistribution(Distribution):
 
 setup(
     name='tensorflow-onmttok-ops',
-    version='0.1.0',
+    version='0.1.1',
     description='OpenNMT Tokenizer as TensorFlow Operations',
     author='Emmanuel Ohana',
     author_email='manu.ohana@gmail.com',
     packages=find_packages(),
     install_requires=[
-        'tensorflow >= 2.0',
+        'tensorflow >= 2.1.0',
     ],
     include_package_data=True,
     ext_modules=[
@@ -48,7 +48,6 @@ setup(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
         'Topic :: Software Development :: Libraries :: Python Modules',
         'Topic :: Software Development :: Libraries',
     ],
