@@ -1,0 +1,40 @@
+language: python
+python:
+  - "3.5"
+  - "3.6"
+  - "3.7"
+services:
+  - docker
+env:
+  global:
+    - OPENNMT_TOKENIZER_COMMIT_SHA=08ba3951c9093603ca2b58bd3a6fa45e9c8fb22f
+    - WHEEL_PLATFORM=manylinux2014_x86_64
+    - WHEEL_DOCKER_IMAGE=quay.io/pypa/manylinux2014_x86_64
+before_script:
+  # Fix python path for usage with sudo; fix scripts permissions
+  - sudo sed -i '/^Defaults\tsecure_path.*$/ d' /etc/sudoers
+  - sudo chmod +x build_pip_pkg.sh
+  # Build and install OpenNMT Tokenizer static library
+  - sudo apt-get update && sudo apt-get install -y git rsync gcc g++ cmake
+  - git clone https://github.com/OpenNMT/Tokenizer.git /opt/opennmt-tokenizer
+  - cd /opt/opennmt-tokenizer
+  - git checkout $OPENNMT_TOKENIZER_COMMIT_SHA
+  - mkdir build && cd build
+  - cmake -DCMAKE_CXX_FLAGS=-fPIC \
+    -DCMAKE_CXX_FLAGS=-D_GLIBCXX_USE_CXX11_ABI=0 \
+    -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=true \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DLIB_ONLY=ON \
+    -DBUILD_SHARED_LIBS=OFF ..
+  - sudo make install
+  # Upgrade pip, install TensorFlow
+  - sudo -H pip install --upgrade pip
+  - sudo -H pip install tensorflow
+script:
+  - cd $TRAVIS_BUILD_DIR
+  - sudo make tf_onmttok_pip_pkg tf_onmttok_test
+after_success:
+  - docker pull $WHEEL_DOCKER_IMAGE
+  - docker run -v `pwd`:/io -w /io $WHEEL_DOCKER_IMAGE bash ./auditwheel.sh repair --plat $WHEEL_PLATFORM artifacts/*.whl
+  - pip install twine
+  - twine upload wheelhouse/*.whl
