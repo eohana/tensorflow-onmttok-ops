@@ -20,4 +20,4 @@ tf_onmttok_test: tensorflow_onmttok/python/ops/onmttok_ops_test.py tensorflow_on
 	$(PYTHON_BIN_PATH) tensorflow_onmttok/python/ops/onmttok_ops_test.py
 
 tf_onmttok_pip_pkg: $(TF_ONMTTOK_TARGET_LIB)
-	./build_pip_pkg.sh make artifacts
+	sudo ./build_pip_pkg.sh make artifacts
