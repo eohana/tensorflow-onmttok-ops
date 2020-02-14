@@ -18,7 +18,7 @@ detokenization outside of a serving environment (e.g. TensorFlow Serving).
 
 ## Compatibility
 
-* TensorFlow == `2.1.0`
+* TensorFlow >= `2.1.0`
 * OpenNMT-tf >= `2.6.0` *for usage in conjunction with OpenNMT-tf*
 
 ## Installation
