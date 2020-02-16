@@ -29,7 +29,10 @@ script:
   - cd $TRAVIS_BUILD_DIR
   - sudo make tf_onmttok_pip_pkg tf_onmttok_test
 after_success:
-  - docker pull $WHEEL_DOCKER_IMAGE
-  - docker run -v `pwd`:/io -w /io $WHEEL_DOCKER_IMAGE bash ./auditwheel.sh repair --plat $WHEEL_PLATFORM artifacts/*.whl
-  - pip install twine
-  - twine upload wheelhouse/*.whl
+  - |
+    if [[ -n $TRAVIS_TAG ]]; then
+        docker pull $WHEEL_DOCKER_IMAGE
+        docker run -v `pwd`:/io -w /io $WHEEL_DOCKER_IMAGE bash ./auditwheel.sh repair --plat $WHEEL_PLATFORM artifacts/*.whl
+        pip install twine
+        twine upload wheelhouse/*.whl
+    fi
