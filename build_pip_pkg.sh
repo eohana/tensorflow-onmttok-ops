@@ -49,9 +49,10 @@ function main() {
 
   echo "=== Copy TensorFlow Custom op files"
 
-  cp ${PIP_FILE_PREFIX}setup.py "${TMPDIR}"
-  cp ${PIP_FILE_PREFIX}MANIFEST.in "${TMPDIR}"
   cp ${PIP_FILE_PREFIX}LICENSE "${TMPDIR}"
+  cp ${PIP_FILE_PREFIX}MANIFEST.in "${TMPDIR}"
+  cp ${PIP_FILE_PREFIX}README.md "${TMPDIR}"
+  cp ${PIP_FILE_PREFIX}setup.py "${TMPDIR}"
   touch "${TMPDIR}"/stub.cc
   rsync -avm -L --exclude='*_test.py' ${PIP_FILE_PREFIX}tensorflow_onmttok "${TMPDIR}"
 
