@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ==============================================================================
+from os import path
 from setuptools import Extension, find_packages, setup
 from setuptools.dist import Distribution
 
@@ -23,12 +24,21 @@ class BinaryDistribution(Distribution):
         return True
 
 
+def get_long_description():
+    readme_path = path.join(path.dirname(__file__), "README.md")
+    with open(readme_path, encoding="utf-8") as readme_file:
+        return readme_file.read()
+
+
 setup(
     name='tensorflow-onmttok-ops',
     version='0.2.0',
     description='OpenNMT Tokenizer as TensorFlow Operations',
+    long_description=get_long_description(),
+    long_description_content_type='text/markdown',
     author='Emmanuel Ohana',
     author_email='manu.ohana@gmail.com',
+    url='https://github.com/eohana/tensorflow-onmttok-ops',
     packages=find_packages(),
     install_requires=[
         'tensorflow >= 2.1.0',
