@@ -25,7 +25,7 @@ class BinaryDistribution(Distribution):
 
 setup(
     name='tensorflow-onmttok-ops',
-    version='0.1.1',
+    version='0.2.0',
     description='OpenNMT Tokenizer as TensorFlow Operations',
     author='Emmanuel Ohana',
     author_email='manu.ohana@gmail.com',
