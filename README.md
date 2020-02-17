@@ -59,7 +59,6 @@ You therefore **cannot** use the following options :
 ### Tokenization
 
 ```python
-import tensorflow as tf
 import tensorflow_onmttok as tf_onmttok
 
 tokens = tf_onmttok.tokenize(["Hello, how are you?"], mode='conservative')
@@ -68,7 +67,6 @@ tokens = tf_onmttok.tokenize(["Hello, how are you?"], mode='conservative')
 ### Detokenization
 
 ```python
-import tensorflow as tf
 import tensorflow_onmttok as tf_onmttok
 
 text = tf_onmttok.detokenize(["How", "are", "you", "?"], mode='space')
@@ -124,15 +122,13 @@ and have all tools installed for building it
 
 #### Build OpenNMT Tokenizer from sources
 
-Since this ops relies on OpenNMT Tokenizer,
-we'll first need to build it from sources.
-
-After cloning the OpenNMT Tokenizer
-[repository](https://github.com/OpenNMT/Tokenizer),
-build a static version of the library :
+The first step is to build a static version of the
+OpenNMT Tokenizer library.  
+Go to a directory of your choice, then build the library as follows :
 
 ```shell script
-$ cd <tokenizer_sources>
+$ wget https://github.com/OpenNMT/Tokenizer/archive/v1.18.1.tar.gz
+$ tar -xf v1.18.1.tar.gz && cd Tokenizer-1.18.1
 $ mkdir build && cd build
 $ cmake -DCMAKE_CXX_FLAGS=-fPIC \
         -DCMAKE_CXX_FLAGS=-D_GLIBCXX_USE_CXX11_ABI=0 \
@@ -144,6 +140,10 @@ $ cmake -DCMAKE_CXX_FLAGS=-fPIC \
 ```
 
 #### Add the Ops sources
+
+First, download the 
+[release](https://github.com/eohana/tensorflow-onmttok-ops/releases)
+of your choice.
 
 Inside the TF Serving sources folder, create a directory
 named `custom_ops` and copy the content of the `tensorflow_onmttok`
@@ -157,7 +157,7 @@ $ cp -r <op_sources>/tensorflow_onmttok tensorflow_serving/custom_ops
 
 #### Reference the Ops
 
-Edit `tensorflow_serving/model_servers/BUILD` to reference 
+Finally, edit `tensorflow_serving/model_servers/BUILD` to reference 
 the Ops build target :
 
 ```shell script
@@ -165,34 +165,6 @@ SUPPORTED_TENSORFLOW_OPS = [
     ...
     "//tensorflow_serving/custom_ops/tensorflow_onmttok:onmttok_ops"
 ]
-```
-
-#### Add OpenNMT Tokenizer target to Bazel
-
-Now, we will indicate to Bazel where to find
-the previously compiled OpenNMT Tokenizer library.
-
-In the `tensorflow_serving` directory, create a new
-file named `opennmt_tokenizer.BUILD` and add the
-following content :
-
-```
-cc_library(
-   name = "OpenNMTTokenizer",
-   srcs = ["libOpenNMTTokenizer.a"],
-   visibility = ["//visibility:public"],
-)
-```
-
-Still in the `tensorflow_serving` directory, append the following
-content to the `WORKSPACE` file.
-
-```
-new_local_repository(
-   name = "opennmt_tokenizer",
-   path = "/usr/local/lib",
-   build_file = "opennmt_tokenizer.BUILD"
-)
 ```
 
 #### Build TensorFlow Serving

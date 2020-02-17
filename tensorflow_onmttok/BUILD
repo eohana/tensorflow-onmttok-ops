@@ -1,4 +1,9 @@
 cc_library(
+    name = "opennmt_tokenizer",
+    srcs = ["libOpenNMTTokenizer.a"],
+)
+
+cc_library(
     name = "onmttok_ops",
     srcs = [
         "cc/kernels/base_op.cc",
@@ -11,7 +16,7 @@ cc_library(
     visibility = ["//visibility:public"],
     alwayslink = 1,
     deps = [
+        ":opennmt_tokenizer",
         "@org_tensorflow//tensorflow/core:framework",
-        "@opennmt_tokenizer//:OpenNMTTokenizer",
-    ]
+    ],
 )
