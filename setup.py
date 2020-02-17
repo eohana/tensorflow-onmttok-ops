@@ -32,7 +32,7 @@ def get_long_description():
 
 setup(
     name='tensorflow-onmttok-ops',
-    version='0.2.0',
+    version='0.2.1',
     description='OpenNMT Tokenizer as TensorFlow Operations',
     long_description=get_long_description(),
     long_description_content_type='text/markdown',
