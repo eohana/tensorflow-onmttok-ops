@@ -7,20 +7,17 @@ services:
   - docker
 env:
   global:
-    - OPENNMT_TOKENIZER_VERSION=1.18.1
     - WHEEL_PLATFORM=manylinux2014_x86_64
     - WHEEL_DOCKER_IMAGE=quay.io/pypa/manylinux2014_x86_64
 before_script:
   # Fix python path for usage with sudo; fix scripts permissions
   - sudo sed -i '/^Defaults\tsecure_path.*$/ d' /etc/sudoers
   - sudo chmod +x build_pip_pkg.sh
-  # Build and install OpenNMT Tokenizer static library
+  - sudo chmod +x build_tokenizer.sh
+  # Install required packages
   - sudo apt-get update && sudo apt-get install -y wget rsync gcc g++ cmake
-  - cd /opt && wget https://github.com/OpenNMT/Tokenizer/archive/v$OPENNMT_TOKENIZER_VERSION.tar.gz
-  - tar -xf v$OPENNMT_TOKENIZER_VERSION.tar.gz && cd Tokenizer-$OPENNMT_TOKENIZER_VERSION
-  - mkdir build && cd build
-  - cmake -DCMAKE_CXX_FLAGS=-fPIC -DCMAKE_CXX_FLAGS=-D_GLIBCXX_USE_CXX11_ABI=0 -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=true -DCMAKE_BUILD_TYPE=Release -DLIB_ONLY=ON -DBUILD_SHARED_LIBS=OFF ..
-  - sudo make install
+  # Build and install OpenNMT Tokenizer static library
+  - ./build_tokenizer.sh sudo
   # Upgrade pip, install TensorFlow
   - sudo -H pip install --upgrade pip
   - sudo -H pip install tensorflow

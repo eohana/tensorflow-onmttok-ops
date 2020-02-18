@@ -120,25 +120,6 @@ and have all tools installed for building it
 
 ### Building
 
-#### Build OpenNMT Tokenizer from sources
-
-The first step is to build a static version of the
-OpenNMT Tokenizer library.  
-Go to a directory of your choice, then build the library as follows :
-
-```shell script
-$ wget https://github.com/OpenNMT/Tokenizer/archive/v1.18.1.tar.gz
-$ tar -xf v1.18.1.tar.gz && cd Tokenizer-1.18.1
-$ mkdir build && cd build
-$ cmake -DCMAKE_CXX_FLAGS=-fPIC \
-        -DCMAKE_CXX_FLAGS=-D_GLIBCXX_USE_CXX11_ABI=0 \
-        -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=true \
-        -DCMAKE_BUILD_TYPE=Release \
-        -DLIB_ONLY=ON \
-        -DBUILD_SHARED_LIBS=OFF .. && \
-  make install
-```
-
 #### Add the Ops sources
 
 First, download the 
@@ -157,7 +138,7 @@ $ cp -r <op_sources>/tensorflow_onmttok tensorflow_serving/custom_ops
 
 #### Reference the Ops
 
-Finally, edit `tensorflow_serving/model_servers/BUILD` to reference 
+Edit `tensorflow_serving/model_servers/BUILD` to reference 
 the Ops build target :
 
 ```shell script
@@ -166,6 +147,22 @@ SUPPORTED_TENSORFLOW_OPS = [
     "//tensorflow_serving/custom_ops/tensorflow_onmttok:onmttok_ops"
 ]
 ```
+
+#### Build OpenNMT Tokenizer from sources
+
+The last step is to build a static version of the
+OpenNMT Tokenizer library.  
+A shell script is provided inside the `tensorflow_onmttok` directory
+that will build it with CMake.
+
+```shell script
+$ cd <tf_serving_sources>
+$ chmod +x tensorflow_serving/custom_ops/tensorflow_onmttok/build_tokenizer.sh
+$ tensorflow_serving/custom_ops/tensorflow_onmttok/build_tokenizer.sh
+```
+
+> **Note**: Pass `sudo` argument to the `build_tokenizer.sh` script
+  to execute the `make install` command with sudo.
 
 #### Build TensorFlow Serving
 
