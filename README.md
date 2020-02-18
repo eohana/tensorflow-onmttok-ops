@@ -152,13 +152,12 @@ SUPPORTED_TENSORFLOW_OPS = [
 
 The last step is to build a static version of the
 OpenNMT Tokenizer library.  
-A shell script is provided inside the `tensorflow_onmttok` directory
+This repository provides a shell script
 that will build it with CMake.
 
 ```shell script
-$ cd <tf_serving_sources>
-$ chmod +x tensorflow_serving/custom_ops/tensorflow_onmttok/build_tokenizer.sh
-$ tensorflow_serving/custom_ops/tensorflow_onmttok/build_tokenizer.sh
+$ cd <op_sources>
+$ chmod +x build_tokenizer.sh && ./build_tokenizer.sh
 ```
 
 > **Note**: Pass `sudo` argument to the `build_tokenizer.sh` script
