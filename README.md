@@ -18,7 +18,7 @@ detokenization outside of a serving environment (e.g. TensorFlow Serving).
 
 ## Compatibility
 
-* TensorFlow >= `2.1.0`
+* TensorFlow `2.1`, `2.2`
 * OpenNMT-tf >= `2.6.0` *for usage in conjunction with OpenNMT-tf*
 
 ## Installation
@@ -26,7 +26,7 @@ detokenization outside of a serving environment (e.g. TensorFlow Serving).
 Prerequisites :
 
 * A Linux environment (`manylinux2014` eligible)
-* Python >= `3.5`
+* Python `3.5`, `3.6`, `3.7` or `3.8`
 
 Install the package with pip :
 
@@ -61,7 +61,7 @@ You therefore **cannot** use the following options :
 ```python
 import tensorflow_onmttok as tf_onmttok
 
-tokens = tf_onmttok.tokenize(["Hello, how are you?"], mode='conservative')
+tokens = tf_onmttok.tokenize(["Hello, how are you?"], mode="conservative")
 ```
 
 ### Detokenization
@@ -69,7 +69,7 @@ tokens = tf_onmttok.tokenize(["Hello, how are you?"], mode='conservative')
 ```python
 import tensorflow_onmttok as tf_onmttok
 
-text = tf_onmttok.detokenize(["How", "are", "you", "?"], mode='space')
+text = tf_onmttok.detokenize(["How", "are", "you", "?"], mode="space")
 ```
 
 ### With OpenNMT-tf
