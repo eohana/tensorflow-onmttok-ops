@@ -14,7 +14,7 @@ public:
         OP_REQUIRES_OK(ctx, ctx->input("tokens", &input_tensor));
         const auto &input_flat = input_tensor->flat<tstring>();
 
-        std::vector<tstring> tokens;
+        std::vector<std::string> tokens;
         for (int i = 0; i < input_flat.size(); ++i) {
             tokens.emplace_back(input_flat(i).data());
         }
