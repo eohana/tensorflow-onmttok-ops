@@ -32,7 +32,7 @@ def get_long_description():
 
 setup(
     name='tensorflow-onmttok-ops',
-    version='0.3.0',
+    version='0.4.0',
     description='OpenNMT Tokenizer as TensorFlow Operations',
     long_description=get_long_description(),
     long_description_content_type='text/markdown',
@@ -41,7 +41,7 @@ setup(
     url='https://github.com/eohana/tensorflow-onmttok-ops',
     packages=find_packages(),
     install_requires=[
-        'tensorflow >= 2.1.0',
+        'tensorflow>=2.1,<2.3',
     ],
     include_package_data=True,
     ext_modules=[
