@@ -23,11 +23,11 @@ def register_opennmt_in_graph_tokenizer():
 
         def _tokenize_string(self, text):
             tokens = self._tokenize_tensor(text).numpy()
-            return [t.decode('utf-8') for t in tokens]
+            return [t.decode("utf-8") for t in tokens]
 
         def _detokenize_tensor(self, tokens):
             return detokenize(tokens, **self._config)
 
         def _detokenize_string(self, tokens):
             text = self._detokenize_tensor(tokens).numpy()
-            return text[0].decode('utf-8')
+            return text[0].decode("utf-8")
