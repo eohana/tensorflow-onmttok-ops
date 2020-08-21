@@ -3,6 +3,7 @@ python:
   - "3.5"
   - "3.6"
   - "3.7"
+  - "3.8"
 services:
   - docker
 env:
@@ -20,7 +21,7 @@ before_script:
   - ./build_tokenizer.sh sudo
   # Upgrade pip, install TensorFlow
   - sudo -H pip install --upgrade pip
-  - sudo -H pip install tensorflow
+  - sudo -H pip install 'tensorflow>=2.1,<2.3'
 script:
   - cd $TRAVIS_BUILD_DIR
   - sudo make tf_onmttok_pip_pkg tf_onmttok_test
