@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-TOKENIZER_VERSION=1.18.1
+TOKENIZER_VERSION=1.18.5
 
 if [[ ${1} == "sudo" ]]; then
   MAKE_CMD_PREFIX=${1}
